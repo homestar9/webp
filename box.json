@@ -53,7 +53,7 @@
         "logs:2021":"server log serverConfigFile=server-adobe@2021.json --follow"
     },
     "testbox":{
-        "runner":"http://localhost:60399/tests/runner.cfm"
+        "runner":"http://localhost:60299/tests/runner.cfm"
     },
     "installPaths":{}
 }

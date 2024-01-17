@@ -109,6 +109,20 @@ component extends="coldbox.system.testing.BaseTestCase" {
                 expect( resultArray[3] ).toContain( "saved file" );
 
             });
+
+
+            it( "can get information on an existing webp", function(){
+                
+                var result = model.info(
+                    source = expandPath( "../../resources/golden.webp" )
+                );
+
+                expect( result ).toHaveKey( "alpha,animation,file,filesize,format,height,width" );
+                expect( result.height ).toBe( 480 );
+                expect( result.width ).tobe( 640 );
+                expect( result.format ).toContain( "lossy" );
+
+            });
         
         });
 
