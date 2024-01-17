@@ -28,9 +28,10 @@ component extends="coldbox.system.testing.BaseTestCase" {
         if ( variables._cleanOutput ) {
 
             // delete everything in the output folder
-            directoryList( variables._outputPath, true, "path", function( path, type, extension ) {
-                return type == "file";
-            } ).each( function( item ) {
+            directoryList( 
+                path = variables._outputPath,
+                type = "file"
+            ).each( function( item ) {
                 fileDelete( item );
             } );
         }
