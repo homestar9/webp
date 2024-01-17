@@ -7,6 +7,9 @@
 .env
 .engine/**
 
+# IDE
+.vscode
+
 # Dependencies
 test-harness/coldbox/**
 test-harness/docbox/**

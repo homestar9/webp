@@ -1,101 +1,140 @@
-<p align="center">
-	<img src="https://www.ortussolutions.com/__media/coldbox-185-logo.png">
-	<br>
-	<img src="https://www.ortussolutions.com/__media/wirebox-185.png" height="125">
-	<img src="https://www.ortussolutions.com/__media/cachebox-185.png" height="125" >
-	<img src="https://www.ortussolutions.com/__media/logbox-185.png"  height="125">
-</p>
+# webp
 
-<p align="center">
-	Copyright Since 2005 ColdBox Platform by Luis Majano and Ortus Solutions, Corp
-	<br>
-	<a href="https://www.coldbox.org">www.coldbox.org</a> |
-	<a href="https://www.ortussolutions.com">www.ortussolutions.com</a>
-</p>
+![WebP Logo](https://github.com/homestar9/webp/blob/main/webp-logo.webp?raw=true)
 
-----
+WebP is a Coldbox module that provides a simple API for converting images into WebP format. It can also be used to convert WebP images into other formats. It uses the precompiled binaries provided by [Google](https://developers.google.com/speed/webp/docs/precompiled).
 
-# Ortus ColdBox Module Template
+## Why WebP?
 
-This template can be used to create Ortus based ColdBox Modules.  To use, just click the `Use this Template` button in the github repository: https://github.com/coldbox-modules/module-template and run the setup task from where you cloned it.
+WebP is a modern image format offering superior lossless and lossy compression for images on the web.  Google encourages the use of modern image formats, like WebP, as part of their [Core Web Vitals](https://web.dev/vitals/) initiative.  WebP images are typically 25-35% smaller than their JPEG or PNG counterparts, resulting in faster page load times and reduced bandwidth usage.  [WebP is compatible](https://caniuse.com/webp) with all major modern browers.
 
-```bash
-box task run taskFile=build/SetupTemplate
+## WebP Support in ColdFusion
+
+- [Lucee's Image Extension](https://github.com/lucee/extension-image) supports WebP as of version 2.0.
+- Adobe ColdFusion does not support WebP.  There is an [open ticket](https://tracker.adobe.com/#/view/CF-4220291) for this feature. Please vote for it!
+
+## Requirements
+
+- Lucee 5+
+- Adobe ColdFusion 2018+
+- Coldbox 6+
+- Windows (for now)
+- `<cfexecute>` enabled
+
+## Installation
+
+Within Commandbox type:
+
+```
+box install webp
 ```
 
-The `SetupTemplate` task will ask you for your module name, id and description and configure the template for you! Enjoy!
+The module configuration will detect your operating system and point to the appropriate binaries. If you need to override the default configuration, you can do so in your `Coldbox.cfc` file:
 
-## Directory Structure
+```
+webp = {
+    cmdPath : "c:\windows\system32\cmd.exe", // path to cmd.exe
+    binPath : "c:\custom-binaries\" // path to your custom binaries
+}
+```
 
-The root of the module is the root of the repository. Add all the necessary files your module will need.
+## Usage
 
-* `.github/workflows` - These are the github actions to test and build the module via CI
-* `build` - This is the CommandBox task that builds the project.  Only modify if needed.  Most modules will never modify it. (Modify if needed)
-* `test-harness` - This is a ColdBox testing application, where you will add your testing files, specs etc.
-* `.cfformat.json` - A CFFormat using the Ortus Standards
-* `.cflintrc` - A CFLint configuration file according to Ortus Standards
-* `.editorconfig` - Smooth consistency between editors
-* `.gitattributes` - Git attributes
-* `.gitignore` - Basic ignores. Modify as needed.
-* `.markdownlint.json` - A linting file for markdown docs
-* `box.json` - The box.json for YOUR module.  Modify as needed.
-* `changelog.md` - A nice changelog tracking file
-* `ModuleConfig.cfc` - Your module's configuration. Modify as needed.
-* `readme.md` - Your module's readme. Modify as needed.
-* `server-xx@x.json` - A set of json files to configure the major engines your modules supports.
+Use Wirebox to inject `webp` into your handler or service:
 
-## Test Harness
+```
+property name="webp" inject="webp@webp";
+```
 
-The test harness is created to bootstrap your working module into the application `afterAspectsLoad`.  This is done in the `config/ColdBox.cfc`.  It includes some key features:
+To encode an image into webp format:
 
-* `config` - Modify as needed
-* `tests` - All your testing specs should go here.  Please notice the commented out ORM fixtures.  Enable them if your module requires ORM
-* `.cfconfig.json` - A prepared cfconfig json file so your engine data is consistent.  Modify as needed.
-* `.env.sample` - An environment property file sample.  Copy and create a `.env` if your app requires it.
+```
+webp.encode( 
+    source = "path/to/image.jpg", 
+    destination = "path/to/image.webp" 
+);
+
+```
+
+To decode a webp image into another format:
+
+```
+webp.decode( 
+    source = "path/to/image.webp", 
+    destination = "path/to/image.png" 
+);
+```
+
+Google currently supports the following [output formats](https://developers.google.com/speed/webp/docs/dwebp): PNG, TIFF, BMP, PPM, PGM, PBM, and PNM.  I have no idea why they don't support JPG.  If you need to convert a webp image to JPG, first, decode the image as a PNG and then use you can use the [`cfimage`](https://cfdocs.org/cfimage) tag or [`imageWrite()`](https://cfdocs.org/imagewrite) function.
+
+### Encode Arguments
+
+The following arguments are available when encoding an image:
+| Argument | Type | Default | Description |
+|----------------|--------------|--------------|--------------|
+| @source | String | | Full path to the source file to convert |
+| @destination |  String | | Full path to the output file |
+| @lossless | Boolean | false | Encode the image without any loss |
+| @nearLossless | Int (0-100) | | Specify the level of near-lossless image preprocessing |
+| @quality | Int (0-100) | 80 | Specify the compression factor. |
+| @losslessCompressionMode | int (0-9) | | Switch on lossless compression mode with the specified level |
+| @alphaQuality | int(0-100) | 100 | Specify the compression factor for alpha compression |
+| @preset | string | | Specify the compression preset (default, photo, picture, drawing, icon, text) |
+| @compressionMethod | int(0-6) | 4 | Specify the compression method to use |
+| @cropX | int | | Crop the source X-position |
+| @cropY | int | | Crop the source Y-position |
+| @cropWidth | int | | Crop the source width |
+| @cropHeight | int | | Crop the source height |
+| @resizeWidth | int | | Resize the source to the specified width |
+| @resizeHeight | int | | Resize the source to the specified height |
+| @multiThreaded | boolean | true | Use multi-threading for encoding, if possible
+| @lowMemory | boolean | false | Reduce memory usage (not recommended)
+| @size | int | | Target size (in bytes) for the output file
+| @psnr | float | | Target PSNR (in dB. typically: 42) for the output file
+| @pass | int (1-10) | 1 | Number of entropy-analysis passes (in [1..10])
+| @autoFilter | boolean | false | Turns auto-filter on. This algorithm will spend additional time optimizing the filtering strength to reach a well-balanced quality |
+| @jpegLike | boolean | false | Enables JPEG-like image preprocessing. This preprocessing step tries to map visually lossless areas to the lossless compressed domain if possible |
+| @filterStrength | int (0-100) |  | Filter strength (between 0 (off) and 100) for the pre-processing step. The larger the value, the stronger the filtering |
+| @filterSharpness | int (0-7) |  | Filter sharpness (between 0 (off) and 7) |
+| @filterStrong | boolean | false | Use strong filter  |
+| @filterWeak | boolean | false | disable strong filter |
+| @exact | boolean | false | Preserve RGB values in transparent area |
+| @metadata | string | none | metadata to copy from the input to the output if present. Valid values: all, none, exif, icc, xmp |
+| @noAlpha | boolean | false | Discard any transparency information |
+| @sourceHint | string | | Hint for image type (photo, picture, graph) |
+| @verbose | boolean | false | return verbose output |
+| @timeout | int | 10 | Timeout in seconds for cfexecute to finish |
+
+See [Google's documentation](https://developers.google.com/speed/webp/docs/cwebp) for more details on encoding Webp images.
+
+### Decode Arguments
+
+The following arguments are available when decoding an image:
+
+| Argument | Type | Default | Description |
+|----------------|--------------|--------------|--------------|
+| @source | String | | Full path to the source file to convert |
+| @destination |  String | | Full path to the output file |
+| @cropX | int | | Crop the source X-position |
+| @cropY | int | | Crop the source Y-position |
+| @cropWidth | int | | Crop the source width |
+| @cropHeight | int | | Crop the source height  |
+| @resizeWidth | int | | Resize the source to the specified width |
+| @resizeHeight | int | | Resize the source to the specified height |
+| flipImage | boolean | false | Flip the image vertically |
+| @multiThreaded | boolean | true | Use multi-threading for encoding, if possible |
+| @verbose | boolean | false | return verbose output |
+| @timeout | int | 10 | Timeout in seconds for cfexecute to finish |
+
+See [Google's Documentation](https://developers.google.com/speed/webp/docs/dwebp) for more details when decoding Webp images.
 
 
-## API Docs
+## Known Issues
 
-The build task will take care of building API Docs using DocBox for you but **ONLY** for the `models` folder in your module.  If you want to document more then make sure you modify the `build/Build.cfc` task.
+This module currently only works on Windows operating systems.  If you have a Mac or Linux machine and would like to contribute, please feel free to submit a PR.
 
-## Github Actions Automation
+## Future Development Roadmap
 
-The github actions will clone, test, package, deploy your module to ForgeBox and the Ortus S3 accounts for API Docs and Artifacts.  So please make sure the following environment variables are set in your repository. ** Please note that most of them are already defined at the org level **
-
-* `FORGEBOX_TOKEN` - The Ortus ForgeBox API Token
-* `AWS_ACCESS_KEY` - The travis user S3 account
-* `AWS_ACCESS_SECRET` - The travis secret S3
-
-> Please contact the admins in the `#infrastructure` channel for these credentials if needed
-
-## Welcome to ColdBox
-
-ColdBox *Hierarchical* MVC is the de-facto enterprise-level [HMVC](https://en.wikipedia.org/wiki/Hierarchical_model%E2%80%93view%E2%80%93controller) framework for ColdFusion (CFML) developers. It's professionally backed, conventions-based, modular, highly extensible, and productive. Getting started with ColdBox is quick and painless.  ColdBox takes the pain out of development by giving you a standardized methodology for modern ColdFusion (CFML) development with features such as:
-
-* [Conventions instead of configuration](https://coldbox.ortusbooks.com/getting-started/conventions)
-* [Modern URL routing](https://coldbox.ortusbooks.com/the-basics/routing)
-* [RESTFul APIs](https://coldbox.ortusbooks.com/the-basics/event-handlers/rendering-data)
-* [A hierarchical approach to MVC using ColdBox Modules](https://coldbox.ortusbooks.com/hmvc/modules)
-* [Event-driven programming](https://coldbox.ortusbooks.com/digging-deeper/interceptors)
-* [Async and Parallel programming constructs](https://coldbox.ortusbooks.com/digging-deeper/promises-async-programming)
-* [Integration & Unit Testing](https://coldbox.ortusbooks.com/testing/testing-coldbox-applications)
-* [Included dependency injection](https://wirebox.ortusbooks.com)
-* [Caching engine and API](https://cachebox.ortusbooks.com)
-* [Logging engine](https://logbox.ortusbooks.com)
-* [An extensive eco-system](https://forgebox.io)
-* Much More
-
-## Learning ColdBox
-
-ColdBox is the defacto standard for building modern ColdFusion (CFML) applications.  It has the most extensive [documentation](https://coldbox.ortusbooks.com) of all modern web application frameworks.
-
-
-If you don't like reading so much, then you can try our video learning platform: [CFCasts (www.cfcasts.com)](https://www.cfcasts.com)
-
-## Ortus Sponsors
-
-ColdBox is a professional open-source project and it is completely funded by the [community](https://patreon.com/ortussolutions) and [Ortus Solutions, Corp](https://www.ortussolutions.com).  Ortus Patreons get many benefits like a cfcasts account, a FORGEBOX Pro account and so much more.  If you are interested in becoming a sponsor, please visit our patronage page: [https://patreon.com/ortussolutions](https://patreon.com/ortussolutions)
-
-### THE DAILY BREAD
-
- > "I am the way, and the truth, and the life; no one comes to the Father, but by me (JESUS)" Jn 14:1-12
+- Support Mac
+- Support Linux
+- Create more encode/decode tests using lossless/lossy advanced options
