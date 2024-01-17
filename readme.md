@@ -65,6 +65,14 @@ webp.decode(
 );
 ```
 
+To get information about a webp image (width, height, etc):
+
+```
+webp.info( 
+    source = "path/to/image.webp"
+);
+```
+
 Google currently supports the following [output formats](https://developers.google.com/speed/webp/docs/dwebp): PNG, TIFF, BMP, PPM, PGM, PBM, and PNM.  I have no idea why they don't support JPG.  If you need to convert a webp image to JPG, first, decode the image as a PNG and then use you can use the [`cfimage`](https://cfdocs.org/cfimage) tag or [`imageWrite()`](https://cfdocs.org/imagewrite) function.
 
 ### Encode Arguments
@@ -127,6 +135,15 @@ The following arguments are available when decoding an image:
 | @timeout | int | 10 | Timeout in seconds for cfexecute to finish |
 
 See [Google's Documentation](https://developers.google.com/speed/webp/docs/dwebp) for more details when decoding Webp images.
+
+
+### Info Arguments
+
+The following arguments are available when getting information for an image:
+
+| Argument | Type | Default | Description |
+|----------------|--------------|--------------|--------------|
+| @source | String | | Full path to the source file to evaluate |
 
 
 ## Known Issues

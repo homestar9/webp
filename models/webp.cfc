@@ -383,6 +383,38 @@ component
     }
 
 
+    function info( required string source ) {
+            
+        var result = {};
+        var cmd =  [];
+
+        if ( !fileExists( source ) ) {
+            throw( "Source file does not exist" );
+        }
+
+        cmd.append( "#source#" );
+
+        var cmdResult = execute(
+            name = settings.binPath & "webpinfo.exe",
+            cmd = cmd
+        );
+
+        var cmdResultArray = listToArray( cmdResult, chr(10) );
+        
+        cmdResultArray.each( function( line ) {
+            if ( trim( line ) == "RIFF HEADER:" ) {
+                return;
+            }
+            
+            if ( listLen( line, ":" ) > 1 ) {
+                result[ listFirst( replaceNoCase( trim( line ), " ", "", "ALL" ), ":" ) ] = trim( listRest( line, ":" ) );
+            }                
+        } );
+
+        return result;
+    }
+
+
 
     /**
      * Execute
@@ -391,7 +423,7 @@ component
     private function execute(
         required string name,
         required array cmd,
-        numeric timeout
+        required numeric timeout=10
     ) {
         var result = "";
 
