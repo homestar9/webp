@@ -3,13 +3,13 @@
     "version":"0.1.0",
     "location":"",
     "author":"Angry Sam Productions <dave@angrysam.com>",
-    "homepage":"hhttps://github.com/homestar9/webp",
+    "homepage":"https://github.com/homestar9/webp/",
     "documentation":"https://github.com/homestar9/webp",
     "repository":{
         "type":"git",
         "url":"https://github.com/homestar9/webp"
     },
-    "bugs":"ttps://github.com/homestar9/webp",
+    "bugs":"https://github.com/homestar9/webp",
     "shortDescription":"CFML ColdBox module to encode/decode Webp images.  Includes and uses Google's WebP binaries.",
     "slug":"webp",
     "type":"modules",
