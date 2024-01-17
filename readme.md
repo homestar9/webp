@@ -1,6 +1,6 @@
 # webp
 
-![WebP Logo](https://github.com/homestar9/webp/blob/main/webp-logo.webp?raw=true)
+![WebP Logo](https://github.com/homestar9/webp/blob/master/webp-logo.webp?raw=true)
 
 WebP is a Coldbox module that provides a simple API for converting images into WebP format. It can also be used to convert WebP images into other formats. It uses the precompiled binaries provided by [Google](https://developers.google.com/speed/webp/docs/precompiled).
 
