@@ -13,3 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * First Beta Release
 * Support for Windows OS
+
+## [0.2.0] => 2024-JAN-17
+
+* Add ability to get info on webp files
