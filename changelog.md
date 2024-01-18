@@ -9,11 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.1] => 2024-JAN-17
+## [0.1.1] => 2024-01-17
 
 * First Beta Release
 * Support for Windows OS
 
-## [0.2.0] => 2024-JAN-17
+## [0.2.0] => 2024-01-17
 
 * Add ability to get info on webp files
+
+
+## [0.2.1] => 2024-01-18
+
+* Fix box.json
