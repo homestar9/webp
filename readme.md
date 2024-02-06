@@ -6,7 +6,7 @@ WebP is a Coldbox module that provides a simple API for converting images into W
 
 ## Why WebP?
 
-WebP is a modern image format offering superior lossless and lossy compression for images on the web.  Google encourages the use of modern image formats, like WebP, as part of their [Core Web Vitals](https://web.dev/vitals/) initiative.  WebP images are typically 25-35% smaller than their JPEG or PNG counterparts, resulting in faster page load times and reduced bandwidth usage.  [WebP is compatible](https://caniuse.com/webp) with all major modern browers.
+WebP is a modern image format offering superior lossless and lossy compression for images on the web.  Google encourages the use of modern image formats, like WebP, as part of their [Core Web Vitals](https://web.dev/vitals/) initiative.  WebP images are typically 25-35% smaller than their JPEG or PNG counterparts, resulting in faster page load times and reduced bandwidth usage.  [WebP is compatible](https://caniuse.com/webp) with all major modern browsers.
 
 ## WebP Support in ColdFusion
 
@@ -155,3 +155,7 @@ This module currently only works on Windows operating systems.  If you have a Ma
 - Support Mac
 - Support Linux
 - Create more encode/decode tests using lossless/lossy advanced options
+
+## About the Author
+
+This module was devotedly developed by [Angry Sam Productions, a web design and development company based in California](https://www.angrysam.com). We believe creating and contributing to open source software strenghens the development community and makes the world a better place. Please get in touch if you would like to learn more about our company or hire us for your next project.
