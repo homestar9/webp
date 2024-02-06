@@ -155,3 +155,7 @@ This module currently only works on Windows operating systems.  If you have a Ma
 - Support Mac
 - Support Linux
 - Create more encode/decode tests using lossless/lossy advanced options
+
+## About the Author
+
+This module was devotedly developed by [Angry Sam Productions, a web design and development company based in California](https://www.angrysam.com). We believe creating and contributing to open source software strenghens the development community and makes the world a better place. Please get in touch if you would like to learn more about our company or hire us for your next project.
